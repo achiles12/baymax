@@ -184,6 +184,7 @@ baymax/                                    # Project root
 ├── scripts/                               # Operational CLI scripts
 │   ├── create_saas_admin.py               # Create the first SaaS Admin identity in a new environment + set-password link
 │   ├── provision_tenant.py                # CLI wrapper around TenantService — create tenant DB + Tenant Admin
+│   ├── seed_dev.py                        # Dev only: first SaaS Admin, a dev tenant and one user per role; idempotent; refuses to run in production
 │   ├── migrate_all_tenants.py             # Run Alembic tenant migrations against every tenant DB
 │   ├── backup_all.py                      # Nightly pg_dump of the platform DB and every tenant DB (30-day retention)
 │   ├── restore_tenant.py                  # Restore one tenant DB from a dump without touching other tenants

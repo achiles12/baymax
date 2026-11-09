@@ -154,9 +154,6 @@ be able to project salary and expenses.
 - **Tech comfort:** Medium
 
 
-
-## Jobs To Be Done
-
 ## Features
 ### Must Have
 - This must be a multi-tenant application, database separated.
@@ -202,6 +199,7 @@ be able to project salary and expenses.
 
 ## Non-Goals
 - Explicitly list what we are NOT building
+- will be reevaluated in the future
 
 
 

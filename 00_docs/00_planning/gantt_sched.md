@@ -2,7 +2,7 @@
 
 A plan for delivering Baymax v1, built from the milestones in `deliverables.md` and the objects in `object_masterlist.md`.
 
-Last updated: 2026-10-30 (backup of the previous version: `20261030_gantt_sched.md`).
+Last updated: 2026-11-05 (backup of the previous version: `20261105_gantt_sched.md`).
 
 **This is an estimate, not a commitment.** No team size or weekly hours were specified, so the dates rest on the assumptions below. Change the assumptions first, then shift the dates.
 
@@ -38,7 +38,7 @@ gantt
 
     section M2 Auth and tenants
     Platform models, security, auth service          :m2a, 2026-11-23, 2026-11-30
-    Tenant registry, provisioning, migrations runner :m2b, 2026-12-01, 2026-12-07
+    Tenant registry, provisioning, migrations runner, dev seed script :m2b, 2026-12-01, 2026-12-07
     Users, tenant admin, app shell, frontend         :m2c, 2026-12-08, 2026-12-10
     Isolation tests and Stage 2 manual pass          :m2d, 2026-12-11, 2026-12-11
 
@@ -69,13 +69,17 @@ gantt
 
 ## Progress
 
-| Phase | Planned start | Actual start | Planned end | Actual end | Status (2026-10-30) |
+| Phase | Planned start | Actual start | Planned end | Actual end | Status (2026-11-05) |
 |---|---|---|---|---|---|
-| M0 Design and decisions | 2 Nov 2026 | 29 Oct 2026 | 13 Nov 2026 | | 🔨 12 of 16 docs drafted (0.2–0.10, 0.14–0.16). Still open: 0.1 PRD gaps, 0.11 test strategy, 0.12 stack decision, 0.13 owner assumptions, and the open points in `ui_screens.md`, `backend_processes.md` and `app_flows.md` |
+| M0 Design and decisions | 2 Nov 2026 | 29 Oct 2026 | 13 Nov 2026 | | 🔨 12 of 16 docs drafted (0.2–0.10, 0.14–0.16). Stack (0.12) accepted as is on 5 Nov; review fixes (PWA, tooling rows, `AuthProvider` note, email/alerts, hardware) deferred to the milestones that need them. Test strategy (0.11): full Baymax draft written 5 Nov (`20261105_test_strat_draft.md`), awaiting review before it replaces `test_strat.md`. PRD (0.1) partly edited. Still open: 0.13 owner assumptions and the open points in `ui_screens.md`, `backend_processes.md` and `app_flows.md` |
 | M1 Foundation | 16 Nov 2026 | | 20 Nov 2026 | | ⬜ Not started; waiting on the stack decision |
 | M2 – M5, go-live | as below | | | | ⬜ Not started |
 
-**Forecast:** M0 is two working days ahead of plan. No dates move yet. If the stack decision and the test strategy are done by 6 Nov, M0 sign-off and M1 can be pulled forward.
+**Forecast (2026-11-05):** M0 is on track. The stack decision closed a day early; `test_strat.md` and the PRD still need real writing. Dates unchanged; re-estimate M1/M5 once the stack is closed.
+
+**Earlier forecast (2026-11-03):** M0 is still on track. No dates move yet. The stack draft adds self-hosting (Tunnel, backups, UPS) and PWA offline-queue work that M1 and M5 don't yet budget; re-estimate once the stack is closed.
+
+**Earlier forecast (2026-10-30):** M0 is two working days ahead of plan. No dates move yet. If the stack decision and the test strategy are done by 6 Nov, M0 sign-off and M1 can be pulled forward.
 
 ## Phase table
 
@@ -132,6 +136,7 @@ Anything on this path that slips moves the release date day for day. Work that c
 | Owner trial finds usability problems on the entry screen | Medium | Rework in M4 | Trial starts after M3 specifically to catch this early; reserve about 3 days in M4 |
 | Roll-up period rules (week/half-year) produce edge-case bugs | Low | M4 +2 days | Unit tests on boundaries written before the service |
 | Manual test machine unavailable | Low | Blocks the definition of done | Confirm access in M0 |
+| Dev seed script (2.15) is bigger than expected | Low | M2 +1 day | It only wraps `create_saas_admin` and `TenantService`; build it after 2.6 and 2.14 pass their tests |
 | Auth0 migration is pulled forward | Low | +1–2 weeks | Auth is behind an interface; keep it out of v1 scope |
 
 ## Tracking

@@ -110,6 +110,7 @@ Each milestone depends on the one before it. M3 is the first point at which the 
 | 2.12 | Email sending | | | Set-password and reset emails delivered by the chosen provider (a console/file sender in development) |
 | 2.13 | **Tenant isolation test suite** | `tests/integration/test_tenant_isolation.py`, `e2e/tenant-isolation.spec.ts` | | A tenant A session cannot read or write tenant B data by any route; 100% of isolation paths covered |
 | 2.14 | First SaaS Admin bootstrap | `scripts/create_saas_admin.py` | | An operator creates the first `saas_admin` identity in a new environment and receives a set-password link; refuses to run twice for the same email (O7) |
+| 2.15 | Dev seed script (initial data) | `scripts/seed_dev.py` | | One command on an empty dev environment creates the first SaaS Admin (reusing 2.14), provisions a dev tenant through `TenantService` (2.6) and creates one user per role with known dev credentials. Safe to re-run (skips what exists). Refuses to run when the environment is production. The default item lists are added once 3.2 exists |
 
 **Milestone test:** a SaaS Admin creates a tenant; its Tenant Admin sets a password, logs in, adds an owner and a staff user; a second tenant exists and cannot be reached from the first.
 
@@ -127,7 +128,7 @@ Each milestone depends on the one before it. M3 is the first point at which the 
 | 3.6 | Entry screen | | `TransactionEntryPage`, `ItemPicker`, `TransactionLineList`, `PriceInput` | A typical fixed-price sale is saved in three taps plus Save with no typing; works on phone, tablet and desktop; unsaved state survives a failed request (F5) |
 | 3.7 | Transactions list | | `TransactionsListPage`, `StatusBadge`, `EmptyState` | Filter by date, type, status, user; all roles can view |
 | 3.8 | E2E tests | | `item-maintenance.spec.ts`, `transaction-entry.spec.ts` | Pass in CI |
-| 3.9 | Seed data for E2E | | `e2e/fixtures/seed.py` | Seeds three tenants, all roles, item lists and a week of transactions |
+| 3.9 | Seed data for E2E | | `e2e/fixtures/seed.py` | Builds on the dev seed (2.15). Seeds three tenants, all roles, item lists and a week of transactions |
 
 **Milestone test:** the owner sets up items; an employee records a day of sales and expenses on a phone; totals match a hand calculation. This is the point at which the owner's laundromat can begin a trial alongside the paper logbook.
 

@@ -140,3 +140,42 @@ Database-per-tenant needs a long-running API process that keeps one connection p
 2. Auth0 vs Clerk, and when to migrate off DB auth
 3. Background jobs in v1 (Procrastinate) or SQL-only roll-ups until v2
 4. Hosting provider for the API and Postgres
+
+# Stack Decision
+
+**Accepted 2026-11-05: the stack proceeds as written below.** The 3 Nov review fixes are not applied. Not decided, and carried as open items: Zitadel vs Auth0 and the `AuthProvider` interface note; PWA/offline queue; Alembic platform/tenant trees and provisioning (covered by deliverables 2.6, 2.7, 2.15); Python and frontend tooling rows; email and alert providers; hardware, UPS and uptime promise. Decide each when its milestone needs it.
+## Application stack
+
+| Layer | Pick 
+|---|---|
+
+| Frontend | React + TypeScript + Vite + Tailwind |
+| API and Backend| Python — FastAPI |
+| Database | **PostgreSQL** (self-hosted) |
+| SaaS Admin console | Admin section inside the React app (SaaS Admin role only), backed by FastAPI routes on the platform DB. Retool or Appsmith if a faster back office is needed. this will be provisioned to prod admin and not during dev |
+| Auth | Zitadel  | `not Supabase weak for database per tenant; Auth0 in a future state` |
+| Audit trail | Append-only `audit_log` table in each tenant DB, written by the service layer in the same transaction as the change. Revoke `UPDATE`/`DELETE` on it for the app role |
+| Background jobs | **Procrastinate** (Postgres-backed) `or **Celery + Redis**  Procrastinate avoids running Redis. Needed for rollups and exports `|
+| Excel/CSV export | openpyxl `openpyxl XlsxWriter` | Standard |
+| Money | Python `Decimal` + Pydantic `Decimal` + PostgreSQL `NUMERIC(12,2)`. Never floats |
+| Tests | `pytest` + `httpx` (backend) against real PostgreSQL via Testcontainers, `Playwright` (E2E) |
+
+
+## Running it locally
+
+| Concern | Pick |
+|---|---|
+| Packaging and deploy | **Docker Compose**: app, Postgres, job worker, reverse proxy |
+| Reverse proxy / HTTPS | **Caddy** (automatic HTTPS) |
+| Public access without a static IP | **Cloudflare Tunnel**: works behind dynamic IPs and CGNAT (common with PH ISPs) and hides the home IP |
+| Remote admin / SSH | **Tailscale**: private access, no open ports |
+| Backups | `pg_dump` or **pgBackRest** on a schedule, copied off-site with **restic** or **rclone** to Cloudflare R2 or Backblaze B2. Practice restores |
+| Uptime alerts | **Uptime Kuma** (self-hosted) plus an external check from outside your network |
+| Errors | **Sentry** (cloud free tier) or **GlitchTip** (self-hosted) |
+| Metrics/logs (optional) | Grafana + Prometheus + Loki, only when needed |
+| CI/CD | **GitHub Actions** runs tests, then deploys over Tailscale/SSH |
+| Secrets | `.env` kept out of git; Infisical or Doppler later |
+| Payments | Keep this open for now `PayMongo or Xendit once billing starts. `|
+| Email | Keep Open for now `Resend`|
+| Alerts | Keep Open for now `Semaphore or Viber`|
+| Admin Console | Use DB Beaver for Me as Developer `Maybe Directus in future. Appsmith or Retool` |

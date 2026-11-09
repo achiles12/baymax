@@ -6,7 +6,7 @@ description: starting our work day we get our tasks for the day
 ## Prerequisites
 
 Before writing any code, read:
-**Project documents:** `~/00_docs/design/`
+**Project documents:** `~/00_docs/02_design/`
 - `api_spec.md`
 - `arch_overview.md`
 - `critical_user_flow.md`
@@ -18,14 +18,14 @@ Before writing any code, read:
 
 **Deliverables and timeline:** ~/00_docs/design/deliverables.md`
 
-**Project notes** `~/00_docs/stage**/`
+**Project notes** `~/00_docs/05_stage**/`
 Place documents and files generated (design, test script, manual test script, bash, python, sql, etc) on the correct stage directory as described by the `deliverables.md`
 Files written in these directories must have a prefix of `yyyymmdd_` — use today's date. if there is an existing file with a similar filename, add a prefix of `_[number]`
 
-**Project Summary** `~/00_docs/summary/`
+**Project Summary** `~/00_docs/03_summary/`
 Files written in these directories must have a prefix of `yyyymmdd_` — use today's date. if there is an existing file with a similar filename, add a prefix of `_[number]`
 
-**todo** `~/00_docs/todos/`
+**todo** `~/00_docs/04_todos/`
 Files written in these directories must have a prefix of `yyyymmdd_` — use today's date. if there is an existing file with a similar filename, add a prefix of `_[number]`
 
 **Objects**

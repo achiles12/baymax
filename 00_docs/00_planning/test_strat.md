@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document defines the testing approach for AthleteFlow v1.0. Given the multi-tenant, schema-separated architecture and role-based access model, test coverage must prioritize tenant isolation, authentication, and the training plan lifecycle.
+This document defines the testing approach for Baymax v1.0. Given the multi-tenant, db-separated architecture and role-based access model, test coverage must prioritize tenant isolation, authentication, and the training plan lifecycle.
 
 ---
 
@@ -16,15 +16,15 @@ Test pure business logic in isolation — no database, no HTTP.
 - Role permission checks (who can create/edit/delete exercises, plans, logs)
 - Training plan date range validation (start_date < end_date)
 - Activity log status transition rules
-- Tenant slug generation and schema name derivation
+- Tenant slug generation and db name derivation
 
 ### 2. Integration Tests
-Test the interaction between application code and a real database. Must use a real PostgreSQL instance with isolated tenant schemas — no mocks.
+Test the interaction between application code and a real database. Must use a real PostgreSQL instance with isolated tenant DBs — no mocks.
 
 **Targets:**
 - Auth: login resolves `user_identities`, sets `search_path`, returns session token
 - Auth: expired sessions are rejected; `used_at` is set on consumed reset tokens
-- Tenant isolation: queries in `tenant_a` schema cannot read `tenant_b` data
+- Tenant isolation: queries in `tenant_a` db cannot read `tenant_b` data
 - Role enforcement at the repository/service layer
 - Training plan CRUD with correct `athlete_id` and `assigned_by` scoping
 - `plan_activities` filtered by `scheduled_date` (daily activity view)
@@ -73,7 +73,7 @@ For flows that are difficult to automate or require visual verification.
 
 ### Tenant Isolation
 - A user in `tenant_a` cannot read users, plans, or logs from `tenant_b`
-- `search_path` is always set before any tenant-schema query
+- `search_path` is always set before any tenant-db query
 - A `user_identities` row with a mismatched `tenant_id` cannot authenticate into the wrong tenant
 
 ### Authentication
@@ -116,7 +116,7 @@ For flows that are difficult to automate or require visual verification.
 
 ## Test Data Strategy
 
-- Each integration test suite provisions its own tenant schema and tears it down after the run.
+- Each integration test suite provisions its own tenant db and tears it down after the run.
 - E2E tests use a shared seeded database reset between test runs.
 - No production data is used in any test environment.
 - Seed data covers all four roles (tenant_admin, coach, trainer, athlete) and a complete training plan with past, present, and future `scheduled_date` entries.

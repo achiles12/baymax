@@ -1,6 +1,6 @@
 # Object Masterlist: Baymax v1.0
 
-Last updated: 2026-10-30 (added design docs 0.14–0.16, the first SaaS Admin script, `ReportsPage`, `AuditLogPage` and the nightly orphan check. Nothing built yet)
+Last updated: 2026-11-05 (0.11 test strategy draft written; 0.12 stack accepted as is; added `seed_dev.py`, 2.15; 0.1, 0.11 and 0.12 status refreshed; no objects built). Previous: 2026-11-03 (0.12 status refreshed). 2026-10-30 (added design docs 0.14–0.16, the first SaaS Admin script, `ReportsPage`, `AuditLogPage` and the nightly orphan check. Nothing built yet)
 
 Every object that `file_system.md` plans, grouped by stage. Stages match the milestones in `deliverables.md` (Stage N = M·N), and the **Deliv.** column gives the deliverable number there. Update the Status and Date columns as each object is built, following the rule that an object gets an approved design doc before it is built.
 
@@ -26,7 +26,7 @@ Stack-specific files (Python/FastAPI/React) follow the baseline in `file_system.
 
 | Object | Type | File | Deliv. | Status | Date |
 |--------|------|------|--------|--------|------|
-| Product requirements | Doc | `00_docs/design/prod_req_doc.md` | 0.1 | 🔨 Exists; sections to finish | |
+| Product requirements | Doc | `00_docs/design/prod_req_doc.md` | 0.1 | 🔨 Exists; Jobs To Be Done heading removed (not written), Non-Goals has one placeholder line, stray AthleteFlow text not yet checked | |
 | API specification | Doc | `00_docs/design/api_spec.md` | 0.2 | ✅ Complete | 2026-10-29 |
 | Architecture overview | Doc | `00_docs/design/arch_overview.md` | 0.3 | ✅ Complete | 2026-10-29 |
 | Critical user flows | Doc | `00_docs/design/critical_user_flow.md` | 0.4 | ✅ Complete | 2026-10-29 |
@@ -36,8 +36,8 @@ Stack-specific files (Python/FastAPI/React) follow the baseline in `file_system.
 | Deliverables | Doc | `00_docs/design/deliverables.md` | 0.8 | ✅ Complete | 2026-10-29 |
 | Schedule | Doc | `00_docs/design/gantt_sched.md` | 0.9 | ✅ Complete (progress tracked from 2026-10-30) | 2026-10-29 |
 | Object masterlist | Doc | `00_docs/design/object_masterlist.md` | 0.10 | ✅ Complete | 2026-10-29 |
-| Test strategy (rewrite for Baymax) | Doc | `00_docs/design/test_strat.md` | 0.11 | ⬜ Not started (still AthleteFlow) | |
-| Stack comparison and decision | Doc | `00_docs/design/stack_comparison.md` | 0.12 | 🔨 Comparison written; decision pending | |
+| Test strategy (rewrite for Baymax) | Doc | `00_docs/design/test_strat.md` | 0.11 | 🔨 Full draft written 2026-11-05 (`00_planning/20261105_test_strat_draft.md`); awaiting review, then replaces `test_strat.md` | |
+| Stack comparison and decision | Doc | `00_docs/design/stack_comparison.md` (working draft: `00_docs/01_research/stack_working.md`) | 0.12 | ✅ Accepted as is (2026-11-05); review fixes deferred, see `stack_comparison.md` | 2026-11-05 |
 | Data-model assumptions confirmed | Doc | `00_docs/design/data_model.md` § Assumptions | 0.13 | ⬜ Not started (needs the owner) | |
 | UI screens | Doc | `00_docs/design/ui_screens.md` | 0.14 | 🔨 Written; open points pending | 2026-10-30 |
 | Backend processes | Doc | `00_docs/design/backend_processes.md` | 0.15 | 🔨 Written; open points pending | 2026-10-30 |
@@ -147,6 +147,7 @@ Stack-specific files (Python/FastAPI/React) follow the baseline in `file_system.
 | `provision_tenant.py` | Script | `scripts/provision_tenant.py` | 2.6 | ⬜ Not started | |
 | `migrate_all_tenants.py` | Script | `scripts/migrate_all_tenants.py` | 2.7 | ⬜ Not started | |
 | `create_saas_admin.py` (first SaaS Admin) | Script | `scripts/create_saas_admin.py` | 2.14 | ⬜ Not started | |
+| `seed_dev.py` (dev seed: SaaS Admin, dev tenant, one user per role) | Script | `scripts/seed_dev.py` | 2.15 | ⬜ Not started | |
 
 ### Frontend
 
